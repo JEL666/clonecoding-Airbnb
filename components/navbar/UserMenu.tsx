@@ -6,6 +6,7 @@ import { useCallback, useState } from 'react';
 import MenuItem from './MenuItem';
 import useRegisterModal from '@/hooks/useRegisterModal';
 import useLoginModal from '@/hooks/useLoginModal';
+import useRentModal from '@/hooks/useRentModal';
 import { signOut } from 'next-auth/react';
 import { SafeUser } from '@/types';
 
@@ -18,17 +19,28 @@ const UserMenu: React.FC<Props> = ({
 }) => {
     const registerModal = useRegisterModal();
     const loginModal = useLoginModal();
+    const rentModal = useRentModal();
+
     const [isOpen, setIsOpen] = useState(false);
 
 const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value)
 }, []);
 
+const onRent = useCallback(() => {
+    if (!currentUser) {
+        return loginModal.onOpen();
+    }
+
+    // Open Rent Modal
+    rentModal.onOpen();
+}, [currentUser, loginModal, rentModal]);
+
     return (
         <div className="relative">
             <div className="flex flex-row itmes-center gap-3">
                 <div
-                    onClick={() => {}}
+                    onClick={onRent}
                     className="
                         hidden
                         md:block
@@ -103,7 +115,7 @@ const toggleOpen = useCallback(() => {
                                     label="My properties"
                                 />
                                 <MenuItem 
-                                    onClick={() => {}}
+                                    onClick={rentModal.onOpen}
                                     label="Aribnb my home"
                                 />
                                 <hr />

@@ -6,15 +6,18 @@ import { FcGoogle } from 'react-icons/fc';
 import { useCallback, useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import useRegisterModal from '@/hooks/useRegisterModal';
+import useLoginModal from '@/hooks/useLoginModal';
 import Modal from './Modal';
 import Heading from '../Heading';
-import Input from '../Input/Input';
+import Input from '../inputs/Input';
 import { toast } from 'react-hot-toast';
 import Button from '../Button';
 import { signIn } from 'next-auth/react';
 
 export default function RegisterModal() {
+  const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -45,6 +48,11 @@ export default function RegisterModal() {
         setIsLoading(false);
       })
   }
+
+  const toggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [])
 
   const bodyContent = (
     <div className='flex flex-col gap-4'>
@@ -108,7 +116,7 @@ export default function RegisterModal() {
               Already have an count?
             </div>
             <div
-              onClick={registerModal.onClose}
+              onClick={toggle}
               className='
               text-neutral-800
               cursor-pointer

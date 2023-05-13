@@ -9,14 +9,18 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import useLoginModal from '@/hooks/useLoginModal';
 import Modal from './Modal';
 import Heading from '../Heading';
-import Input from '../Input/Input';
+import Input from '../inputs/Input';
 import { toast } from 'react-hot-toast';
 import Button from '../Button';
 import { useRouter } from 'next/navigation';
+import useRegisterModal from '@/hooks/useRegisterModal';
 
 export default function LoginModal() {
   const router =  useRouter();
+
+  const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -53,6 +57,11 @@ export default function LoginModal() {
       }
     })
   }
+
+  const toggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [])
 
   const bodyContent = (
     <div className='flex flex-col gap-4'>
@@ -105,16 +114,16 @@ export default function LoginModal() {
         >
           <div className='justify-center flex flex-row items-center gap-2'>
             <div>
-              Already have an count?
+              First time using Airbnb?
             </div>
             <div
-              onClick={loginModal.onClose}
+              onClick={toggle}
               className='
               text-neutral-800
               cursor-pointer
               hover:underline
             '>
-              Log in
+              Create an account
             </div>
           </div>
         </div>
