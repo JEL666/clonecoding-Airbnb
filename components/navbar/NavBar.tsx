@@ -1,13 +1,14 @@
 'use client';
 
-import { User } from "@prisma/client";
 import Container from "../Container";
 import Logo from "./Logo";
 import Search from "./Search";
 import UserMenu from "./UserMenu";
+import Categories from "./Categories";
+import { SafeUser } from "@/types";
 
 interface Props {
-    currentUser?: User | null;
+    currentUser?: SafeUser | null;
 }
 
 export default function NavBar({ currentUser }: Props): JSX.Element {
@@ -36,6 +37,7 @@ export default function NavBar({ currentUser }: Props): JSX.Element {
                     </div>
                 </Container>
             </div>
+            <Categories />
         </div>
     )
 }
