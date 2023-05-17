@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function NavBar({ currentUser }: Props): JSX.Element {
-    console.log(currentUser);
+
     return (
         <div className="fixed w-full bg-white z-10 shadow-sm">
             <div 

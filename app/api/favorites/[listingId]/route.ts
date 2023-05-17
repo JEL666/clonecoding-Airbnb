@@ -38,7 +38,7 @@ export async function POST(
   return NextResponse.json(user);
 }
 
-export default async function DELETE(
+export async function DELETE(
   request: Request,
   { params }: { params: IParams }
 ) {
