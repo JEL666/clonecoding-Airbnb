@@ -6,7 +6,7 @@ import ListingInfo from "@/components/listings/ListingInfo";
 import ListingReservation from "@/components/listings/ListingReservation";
 import { categories } from "@/components/navbar/Categories";
 import useLoginModal from "@/hooks/useLoginModal";
-import { SafeListing, SafeUser } from "@/types";
+import { SafeListing, SafeReservation, SafeUser } from "@/types";
 import { Reservation } from "@prisma/client";
 import axios from "axios";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
@@ -19,10 +19,10 @@ const initialDateRange = {
   startDate: new Date(),
   endDate: new Date(),
   key: 'selection'
-}
+} as Range
 
 interface Props {
-  reservations?: Reservation[];
+  reservations?: SafeReservation[];
   listing: SafeListing & {
     user: SafeUser
   };
@@ -40,7 +40,7 @@ export default function ListingClient({
   const disabledDates = useMemo(() => {
     let dates: Date[] = [];
 
-    reservations.forEach((reservation: Reservation) => {
+    reservations.forEach((reservation: SafeReservation) => {
       const range = eachDayOfInterval({
         start: new Date(reservation.startDate),
         end: new Date(reservation.endDate)
@@ -72,8 +72,7 @@ export default function ListingClient({
     .then(() => {
       toast.success("Listing reserved!");
       setDateRange(initialDateRange);
-      // Redirect to /trips
-      router.refresh();
+      router.push("/trips");
     })
     .catch(() => {
       toast.error("Something went wrong.");
