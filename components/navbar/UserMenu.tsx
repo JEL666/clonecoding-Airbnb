@@ -114,7 +114,7 @@ const onRent = useCallback(() => {
                                     label="My reservations"
                                 />
                                 <MenuItem 
-                                    onClick={() => {}}
+                                    onClick={() => router.push("/properties")}
                                     label="My properties"
                                 />
                                 <MenuItem 
