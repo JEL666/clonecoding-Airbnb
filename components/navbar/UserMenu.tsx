@@ -106,8 +106,8 @@ const onRent = useCallback(() => {
                                     label="My trips"
                                 />
                                 <MenuItem 
-                                    onClick={() => {}}
-                                    label="My favoriates"
+                                    onClick={() => router.push("/favorites")}
+                                    label="My favorites"
                                 />
                                 <MenuItem 
                                     onClick={() => router.push("/reservations")}
