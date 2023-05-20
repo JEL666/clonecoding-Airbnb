@@ -17,7 +17,7 @@ interface Props {
     secondarActionyLabel?: string
 }
 
-export default function     Modal({
+export default function Modal({
     isOpen = false,
     onClose,
     onSubmit,
